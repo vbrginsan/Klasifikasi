@@ -3,26 +3,26 @@ library(tm)
 library(SnowballC)
 library(arm)
 # Training data.
-data <- c('Video Porno Aryodj Ini Kata MKD DPR',
+data <- c('Amien Rais bertemu Jokowi',
           'Jokowi Atur Waktu Temui Amien Rais',
-          'Fadli Zon Akui Prabowo dan Puan Pernah Bertemu',
-          'Dibully Netizen Megawati Angkat Bicara',
-          'Zidane tinggalkan Madrid',
-          'TommyLimmm bakal keluar dari Tim2One',
-          'Zlatan keluar dari LA Galaxy',
-          'Polisi Tangkap Orang yang Mengibarkan Bendera OPM',
-          'Abu Vulkanik Merapi Sampai ke daerah Jakarta',
-          'No Game No Life Bakal Bikin Season ke 2',
-          'Video Porno Aryodj Pimpinan DPR: MKD Punya Kewajiban Meluruskan',
+          'Ada kejanggalan Amien saat bertemu Jokowi',
+          'Netizen tidak percaya adanya pertemuan Amien dengan Jokowi',
+          'Jokowi belum sempat kasih kabar petemuan untuk Amien',
+          'Amien Rais batal mengunjungi Jokowi',
+          'Belum ada kepastian Amien bertemu Jokowi',
+          'Pertemuan yang sudah direncanakan Amien',
+          'Jokowi dan Amien jalan bareng',
+          'Melihat Jokowi bersama Amien Rais Netizen membuat meme',
+          'Ada rencana dibalik pertemuan ini kata Amien',
           'Amien Rais Dulu Sempat Mau Bertemu Jokowi tapi Batal',
-          'Puan Maharani Sudah Bertemu Prabowo',
-          'Megawati Membantah dibully Netizen',
-          'Kontrak Pelatih Real Madrid tidak diperpanjang',
-          'Chandra Liaw Bertengkar dengan TommyLimmm',
-          'LA Galaxy menaikan gaji agar Zlatan tidak Keluar',
-          'OPM ditembak Mati Polisi',
-          'Gunung Merapi Meletus Lagi Menenyemburkan Abu Vulkanik',
-          'Season Ke 2 Pemeran Utama Akan Menjadi Jahat')
+          'Hendak bertemu Jokowi',
+          'Amien sudah menunggu pertemuan ini',
+          'Apa yang dibahas dalam pertemuan Jokowi Amien',
+          'Pertemuan ini hanya mencari muka komen netizen',
+          'Tidak adanya pertemuan kata Jokowi',
+          'Amien rais belum siap bertemu',
+          'Percaya atau tidak semua terserah netizen kata Amien',
+          'Amien tidak ada kabar mau bertemu Jokowi')
 corpus <- VCorpus(VectorSource(data))
 
 # Create a document term matrix.
@@ -43,20 +43,19 @@ fit <- train(y ~ ., data = train, method = 'bayesglm')
 predict(fit, newdata = train)
 
 # Test data.
-data2 <- c('Heboh Beredar Video Porno Mirip Anggota DPR Aryodj',
+data2 <- c('Tidak ada pertemuan Amien dengan Jokowi',
            'Amien Ingin Ketemu Jokowi di Luar Istana Itu Biasa',
-           'Puan Ketemu Langsung sama Prabowo',
-           'Megawati Sesak Napas Sering dibully Netizen',
-           'Zidane tidak Lagi Melatih Real',
-           'Tommy dan Chandra membantah Bakal Pisah',
-           'Zlatan akan tetap Bermain di LA Galaxy',
-           'OPM demo Didepan Polda atas Tembakan yang Terjadi',
-           'Abu Vulkanik Menutupi Jogja',
-           'Season Ke 2 No Game No Life Tidak akan Keluar')
+           'Pertemuan ini berjalan lancar',
+           'Jokowi sempat Selfie bersama Amien Rais saat bertemu',
+           'Ada rencana tersembunyi dalam pertemuan Amien kata Netizen',
+           'Jokowi mengundurkan waktu pertemuan Amien Rais',
+           'Amien kecewa belum sempat bertemu dengan Jokowi',
+           'Jokowi hendak bertemu hanya berpapasan',
+           'Rencana bertemu Jokowi Amien batal datang',
+           'Tidak ada kepastian kapan bertemu')
 corpus <- VCorpus(VectorSource(data2))
 tdm <- DocumentTermMatrix(corpus, control = list(dictionary = Terms(tdm), removePunctuation = TRUE, stopwords = TRUE, stemming = TRUE, removeNumbers = TRUE))
 test <- as.matrix(tdm)
 
 # Check accuracy on test.
 predict(fit, newdata = test)
-
